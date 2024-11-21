@@ -1,11 +1,12 @@
 const express = require('express'); //requiring express
+require('dotenv').config();
 const mongoose = require('mongoose'); //using mongodb as nosql database
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 app.use(bodyParser.json());
 
-const mongoUri = "mongodb+srv://manubhav731:0000@test-school.qhd67.mongodb.net/?retryWrites=true&w=majority&appName=Test-School"
+const mongoUri = process.env.MONGO_URI;
 mongoose.connect(mongoUri)
 .then(() => {
   console.log("Successfully connected to MongoDB");
