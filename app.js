@@ -3,7 +3,7 @@ require('dotenv').config();
 const mongoose = require('mongoose'); //using mongodb as nosql database
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = 8800;
 app.use(bodyParser.json());
 
 const mongoUri = process.env.MONGO_URI;
@@ -23,7 +23,15 @@ const schoolSchema = new mongoose.Schema({
   
   const School = mongoose.model('School', schoolSchema);
   app.get('/',(req,res)=>{
-    res.send("Running");
+    res.send("Welcome to the End to End Deployment of the given task , you can use/viewSchools route to view the schools , for /listSchools you have to pass Lattitude and Longitude as Query eg: (https://schooldatabase-management.postman.co/workspace/4273b575-4954-4a79-ae2c-3d0edf94142b/request/39905045-a1be491b-bc50-481e-b572-e6663962cba8?action=share&source=copy-link&creator=39905045) you can Check the working of post route using postMan by selecting method = post and going to /addSchool route");
+  });
+  app.get('/viewSchools' , async (req,res)=>{
+    try {
+      const schools = await School.find();
+      res.status(200).json(schools);
+    } catch(err){
+      res.status(400).json({error:"NO schools"});
+    }
   });
   
 
